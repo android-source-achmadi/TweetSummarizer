@@ -69,7 +69,7 @@ public class CleanTweets {
 		String[] tempSentences;
 		Iterator<String> i = tweets.iterator();
 		String tweet;
-		System.out.println("size before "+tweets.size());
+		System.out.println("size before 1"+tweets.size());
 		while(i.hasNext()){
 			tweet = (String)i.next();
 			/*Convert HTML characters to ASCII */
