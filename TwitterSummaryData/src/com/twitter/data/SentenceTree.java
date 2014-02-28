@@ -6,6 +6,14 @@ import java.util.Iterator;
 public class SentenceTree {
 	public HashMap<Double,ArrayList<Node>> LeftDistNodeList = new HashMap<Double,ArrayList<Node>>();
 	public HashMap<Double,ArrayList<Node>> RightDistNodeList = new HashMap<Double,ArrayList<Node>>();
+	
+	/**
+	 * Check if a word is a child of a node;
+	 * @param word
+	 * @param adjacent
+	 * @param direction
+	 * @return return node that is the same as word.
+	 */
 	public Node isAChild(String word, Node adjacent, int direction) {
 
 		Node child = new Node("NULL",0,0);
@@ -17,6 +25,7 @@ public class SentenceTree {
 				String label2 = temp2.getLabel();
 				if(label2.equals(word)){
 					child = temp2;
+					//TODO: Why don't have a break here?
 				}
 			}
 		}
@@ -26,15 +35,21 @@ public class SentenceTree {
 				String label = temp.getLabel();
 				if(label.equals(word)){
 					child = temp;
+					//TODO: Why don't have a break here?
 				}
-
 			}
 		}
 
 		return child;
 	}
 
-	
+	/**
+	 * Check to see whether a word with specific distance belongs to the list (corresponding to distance)
+	 * @param word: Word
+	 * @param distance: Distance
+	 * @param direction: Direction
+	 * @return Node corresponding distance in list (direction) 
+	 */
 	public Node inDistNodeList(String word, double distance,int direction){
 		Double dist = new Double(distance);
 		Node flagNode = new Node("NULL",0,0);
@@ -44,10 +59,10 @@ public class SentenceTree {
 				int length = tempList.size();
 				for(int i=0 ; i<length;i++) {
 					Node temp = tempList.get(i);
+					// increase frequency if node is found
 					if(temp.getLabel().equals(word)){
 						double freq = temp.getcount() + 1;
 						temp.setcount(freq);
-						
 						flagNode = temp;
 					}
 				}
@@ -68,9 +83,15 @@ public class SentenceTree {
 			}
 		}
 		return flagNode;
-
+		//TODO: If not found then return NULL node?
 	}
 
+	/**
+	 * Add node with corresponding distance and direction into DistanceList
+	 * @param node: Node
+	 * @param distance: Corresponding distance
+	 * @param direction: Corresponding direction List
+	 */
 	public void addToDistList(Node node,double distance,int direction) {
 		if(direction == DFSSearch.LEFT){
 			if(LeftDistNodeList.containsKey(distance)) {
@@ -98,6 +119,13 @@ public class SentenceTree {
 		}
 	}
 
+	/**
+	 * Add word to corresponding tree, coming from the root and with corresponding direction.
+	 * @param word: Word
+	 * @param adjacent: Root
+	 * @param direction: Direction deciding the corresponding left|right list.
+	 * @return Constructed node
+	 */
 	public Node addWordToTree(String word, Node adjacent, int direction){
 		Node currentWord = isAChild(word,adjacent,direction);
 		Node x = inDistNodeList(word,adjacent.getDistance()+1,direction);
@@ -105,8 +133,6 @@ public class SentenceTree {
 		if(currentWord.getLabel().equals(word)){
 			
 			//Alredy present, increment count
-			
-		
 
 		}
 		String currentLabel = currentWord.getLabel();
@@ -160,6 +186,11 @@ public class SentenceTree {
 		node.setweight(weight);
 	}
 	
+	/**
+	 * MAIN: Add sentence to the root node. This constructs the terms graph.
+	 * @param sentence
+	 * @param root
+	 */
 	public void addSentence(ArrayList<String> sentence, Node root) {
 		int length = sentence.size();
 		String rootWord = root.getLabel();
