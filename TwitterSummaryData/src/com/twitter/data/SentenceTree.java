@@ -213,6 +213,11 @@ public class SentenceTree {
 		}
 
 	}
+	
+	/**
+	 * Print tree corresponding to distance node list
+	 * @param root: Start node
+	 */
 	public void printTree(Node root){
 
 		int distListLength = LeftDistNodeList.size();
