@@ -8,11 +8,11 @@ public class SentenceTree {
 	public HashMap<Double,ArrayList<Node>> RightDistNodeList = new HashMap<Double,ArrayList<Node>>();
 	
 	/**
-	 * Check if a word is a child of a node;
-	 * @param word
-	 * @param adjacent
-	 * @param direction
-	 * @return return node that is the same as word.
+	 * Check if a word is a child (in inner node list) on one side of a node (decided by the direction)
+	 * @param word: word
+	 * @param adjacent: node
+	 * @param direction: direction deciding the list, whether on the left on right
+	 * @return return node that is the same as word, else return NULL node.
 	 */
 	public Node isAChild(String word, Node adjacent, int direction) {
 
@@ -44,7 +44,7 @@ public class SentenceTree {
 	}
 
 	/**
-	 * Check to see whether a word with specific distance belongs to the list (corresponding to distance)
+	 * Check to see whether a word with specific distance belongs to the distance list (corresponding to distance)
 	 * @param word: Word
 	 * @param distance: Distance
 	 * @param direction: Direction
@@ -83,7 +83,6 @@ public class SentenceTree {
 			}
 		}
 		return flagNode;
-		//TODO: If not found then return NULL node?
 	}
 
 	/**
@@ -129,17 +128,18 @@ public class SentenceTree {
 	public Node addWordToTree(String word, Node adjacent, int direction){
 		Node currentWord = isAChild(word,adjacent,direction);
 		Node x = inDistNodeList(word,adjacent.getDistance()+1,direction);
+		
 		//Found in the Sentence Tree
 		if(currentWord.getLabel().equals(word)){
-			
 			//Alredy present, increment count
-
 		}
+		
 		String currentLabel = currentWord.getLabel();
 		//double currentDist = adjacent.getDistance() +1.0;
 	
 		String xLabel = x.getLabel();
 		//System.out.println("currentLabel = "+currentLabel);
+		
 		// Node is absent in both Tree and Distance List
 		if(currentLabel.equals("NULL") && xLabel.equals("NULL")) {
 			//System.out.println("Node is absent in both Tree and Distance List ");
@@ -147,6 +147,7 @@ public class SentenceTree {
 			if(direction == DFSSearch.LEFT){
 				// no left node,create newnode
 				adjacent.getLeft().add(currentWord);
+				//TODO: What is it for?
 				currentWord.getRight().add(adjacent);
 			}
 			if(direction == DFSSearch.RIGHT) {
@@ -154,11 +155,13 @@ public class SentenceTree {
 				adjacent.getRight().add(currentWord);
 				currentWord.getLeft().add(adjacent);
 			}
+			//TODO: Why whole distance + 1?
 			addToDistList(currentWord,adjacent.getDistance()+1,direction);
 		}	
+		
 		if(currentLabel.equals("NULL") && (xLabel.equals(word))) {
 			//System.out.println("Node is present in the Tree at the same distance but adjacent to some other node ");
-			//Alredy present at the same distance, increment count and modify the left,right ref
+			//Already present at the same distance, increment count and modify the left,right ref
 			
 			double w = x.getcount();
 		
