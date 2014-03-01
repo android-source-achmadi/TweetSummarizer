@@ -10,7 +10,7 @@ public class SentenceTree {
 	/**
 	 * Check if a word is a child (in inner node list) on one side of a node (decided by the direction)
 	 * @param word: word
-	 * @param adjacent: node
+	 * @param adjacent: adjacnet node
 	 * @param direction: direction deciding the list, whether on the left on right
 	 * @return return node that is the same as word, else return NULL node if not found.
 	 */
