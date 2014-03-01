@@ -12,7 +12,7 @@ public class SentenceTree {
 	 * @param word: word
 	 * @param adjacent: node
 	 * @param direction: direction deciding the list, whether on the left on right
-	 * @return return node that is the same as word, else return NULL node.
+	 * @return return node that is the same as word, else return NULL node if not found.
 	 */
 	public Node isAChild(String word, Node adjacent, int direction) {
 
@@ -25,7 +25,7 @@ public class SentenceTree {
 				String label2 = temp2.getLabel();
 				if(label2.equals(word)){
 					child = temp2;
-					//TODO: Why don't have a break here?
+					break;
 				}
 			}
 		}
@@ -35,7 +35,7 @@ public class SentenceTree {
 				String label = temp.getLabel();
 				if(label.equals(word)){
 					child = temp;
-					//TODO: Why don't have a break here?
+					break;
 				}
 			}
 		}
@@ -147,7 +147,6 @@ public class SentenceTree {
 			if(direction == DFSSearch.LEFT){
 				// no left node,create newnode
 				adjacent.getLeft().add(currentWord);
-				//TODO: What is it for?
 				currentWord.getRight().add(adjacent);
 			}
 			if(direction == DFSSearch.RIGHT) {
@@ -155,7 +154,6 @@ public class SentenceTree {
 				adjacent.getRight().add(currentWord);
 				currentWord.getLeft().add(adjacent);
 			}
-			//TODO: Why whole distance + 1?
 			addToDistList(currentWord,adjacent.getDistance()+1,direction);
 		}	
 		
@@ -166,6 +164,7 @@ public class SentenceTree {
 			double w = x.getcount();
 		
 			currentWord.setcount(w);
+			currentWord.setLabel(word);
 			
 			if(direction == DFSSearch.LEFT){
 				// no left node,create newnode
