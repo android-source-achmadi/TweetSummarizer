@@ -8,7 +8,7 @@ public class DFSSearch {
 
 	public Node DFSUpdateweight(int direction, Node node) {
 		// stop condition
-		System.out.println(node.getLabel());
+//		System.out.println(node.getLabel());
 		ArrayList<Node> children;
 		
 		if (direction == DFSSearch.LEFT) {
