@@ -9,7 +9,6 @@ import java.util.Iterator;
 public class SentenceTree {
 	public HashMap<Double,ArrayList<Node>> LeftDistNodeList = new HashMap<Double,ArrayList<Node>>();
 	public HashMap<Double,ArrayList<Node>> RightDistNodeList = new HashMap<Double,ArrayList<Node>>();
-<<<<<<< HEAD
 	public File stopWords = new File("StopWords.txt");
 
 
@@ -37,9 +36,6 @@ public class SentenceTree {
 		}
 		return false;
 	}
-=======
-	
->>>>>>> 13409af245f8baab0555518bfc5f83fa8c99b327
 	/**
 	 * Check if a word is a child (in inner node list) on one side of a node (decided by the direction)
 	 * @param word: word
@@ -98,10 +94,7 @@ public class SentenceTree {
 
 						freq = temp.getcount() + 1;
 						temp.setcount(freq);
-<<<<<<< HEAD
 
-=======
->>>>>>> 13409af245f8baab0555518bfc5f83fa8c99b327
 						flagNode = temp;
 					}
 				}
@@ -169,30 +162,18 @@ public class SentenceTree {
 	public Node addWordToTree(String word, Node adjacent, int direction){
 		Node currentWord = isAChild(word,adjacent,direction);
 		Node x = inDistNodeList(word,adjacent.getDistance()+1,direction);
-<<<<<<< HEAD
 
-=======
-		
->>>>>>> 13409af245f8baab0555518bfc5f83fa8c99b327
 		//Found in the Sentence Tree
 		if(currentWord.getLabel().equals(word)){
 			//Alredy present, increment count
 		}
-<<<<<<< HEAD
 
-=======
-		
->>>>>>> 13409af245f8baab0555518bfc5f83fa8c99b327
 		String currentLabel = currentWord.getLabel();
 		//double currentDist = adjacent.getDistance() +1.0;
 
 		String xLabel = x.getLabel();
 		//System.out.println("currentLabel = "+currentLabel);
-<<<<<<< HEAD
 
-=======
-		
->>>>>>> 13409af245f8baab0555518bfc5f83fa8c99b327
 		// Node is absent in both Tree and Distance List
 		if(currentLabel.equals("NULL") && xLabel.equals("NULL")) {
 			//System.out.println("Node is absent in both Tree and Distance List ");
@@ -212,27 +193,15 @@ public class SentenceTree {
 			}
 			addToDistList(currentWord,adjacent.getDistance()+1,direction);
 		}	
-<<<<<<< HEAD
 
 		if(currentLabel.equals("NULL") && (xLabel.equals(word))) {
 			//System.out.println("Node is present in the Tree at the same distance but adjacent to some other node ");
 			//Already present at the same distance, increment count and modify the left,right ref
 
-=======
-		
-		if(currentLabel.equals("NULL") && (xLabel.equals(word))) {
-			//System.out.println("Node is present in the Tree at the same distance but adjacent to some other node ");
-			//Already present at the same distance, increment count and modify the left,right ref
-			
->>>>>>> 13409af245f8baab0555518bfc5f83fa8c99b327
 			double w = x.getcount();
 			currentWord.setcount(w);
 			currentWord.setLabel(word);
-<<<<<<< HEAD
 
-=======
-			
->>>>>>> 13409af245f8baab0555518bfc5f83fa8c99b327
 			if(direction == DFSSearch.LEFT){
 				// no left node,create newnode
 				adjacent.getLeft().add(currentWord);
@@ -257,11 +226,7 @@ public class SentenceTree {
 		else
 			node.setweight(0);
 	}
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> 13409af245f8baab0555518bfc5f83fa8c99b327
 	/**
 	 * MAIN: Add sentence to the root node. This constructs the terms graph.
 	 * @param sentence
@@ -286,11 +251,7 @@ public class SentenceTree {
 		}
 
 	}
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> 13409af245f8baab0555518bfc5f83fa8c99b327
 	/**
 	 * Print tree corresponding to distance node list
 	 * @param root: Start node
