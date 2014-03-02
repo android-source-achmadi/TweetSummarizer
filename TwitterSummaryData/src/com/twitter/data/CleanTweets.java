@@ -86,7 +86,7 @@ public class CleanTweets {
 			/*remove RT phrases*/
 			tweet = tweet.replace("RT", "");
 			/*remove @ from @mention*/
-			tweet = tweet.replace("@", "");
+			tweet = tweet.replaceAll("@\\w+:", " ");
 			/*convert alll tweets to lower case*/
 			tweet = tweet.toLowerCase();
 			/*replace multiple '.' with a single one*/

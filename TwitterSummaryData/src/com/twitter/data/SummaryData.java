@@ -67,14 +67,14 @@ public class SummaryData {
     	HashMap<String,ArrayList> twitterDataSet = new HashMap<String,ArrayList>();
     	try  
 		{
-		    FileWriter fstream = new FileWriter("14Feb2am.txt", false); //true tells to append data.
+		    FileWriter fstream = new FileWriter("1Mar2am.txt", false); //true tells to append data.
 		    BufferedWriter out = null;
 		    out = new BufferedWriter(fstream);
 	    	for(int i=0;i<trendingTopics.length;i++){
 		    	Query query = new Query(trendingTopics[i]);
 		    	ArrayList<String> tweetsData = new ArrayList<String>();
 		    	/*TODO: Change this date dynamically to 24 hours*/
-		    	query.setSince("2014-02-09");
+		    	query.setSince("2014-02-21");
 		    	query.setCount(100);
 		    	QueryResult result;
 				try {
