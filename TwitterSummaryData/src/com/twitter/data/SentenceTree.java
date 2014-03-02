@@ -1,12 +1,41 @@
 package com.twitter.data;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 public class SentenceTree {
 	public HashMap<Double,ArrayList<Node>> LeftDistNodeList = new HashMap<Double,ArrayList<Node>>();
 	public HashMap<Double,ArrayList<Node>> RightDistNodeList = new HashMap<Double,ArrayList<Node>>();
-	
+	public File stopWords = new File("StopWords.txt");
+
+
+	/** Check if a word is a stop word 
+	 * 
+	 * @param word
+	 * @return true if its a Stop Word, if not false
+	 */
+	public boolean isStopWord(String word) {
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(stopWords));
+			String line;
+			while ((line = br.readLine()) != null) {
+
+				if(word.equals(line) )
+					return true;
+
+			}
+
+		}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		}
+		return false;
+	}
 	/**
 	 * Check if a word is a child (in inner node list) on one side of a node (decided by the direction)
 	 * @param word: word
@@ -61,8 +90,11 @@ public class SentenceTree {
 					Node temp = tempList.get(i);
 					// increase frequency if node is found
 					if(temp.getLabel().equals(word)){
-						double freq = temp.getcount() + 1;
+						double freq;
+
+						freq = temp.getcount() + 1;
 						temp.setcount(freq);
+
 						flagNode = temp;
 					}
 				}
@@ -75,9 +107,11 @@ public class SentenceTree {
 				for(int i=0 ; i<length;i++) {
 					Node temp = tempList.get(i);
 					if(temp.getLabel().equals(word)){
-						double freq = temp.getcount() + 1;
+						double freq;
+
+						freq = temp.getcount() + 1;
 						temp.setcount(freq);
-						flagNode = temp;
+
 					}
 				}
 			}
@@ -128,22 +162,25 @@ public class SentenceTree {
 	public Node addWordToTree(String word, Node adjacent, int direction){
 		Node currentWord = isAChild(word,adjacent,direction);
 		Node x = inDistNodeList(word,adjacent.getDistance()+1,direction);
-		
+
 		//Found in the Sentence Tree
 		if(currentWord.getLabel().equals(word)){
 			//Alredy present, increment count
 		}
-		
+
 		String currentLabel = currentWord.getLabel();
 		//double currentDist = adjacent.getDistance() +1.0;
-	
+
 		String xLabel = x.getLabel();
 		//System.out.println("currentLabel = "+currentLabel);
-		
+
 		// Node is absent in both Tree and Distance List
 		if(currentLabel.equals("NULL") && xLabel.equals("NULL")) {
 			//System.out.println("Node is absent in both Tree and Distance List ");
 			currentWord = new Node(word,1.0,0.0);
+
+
+
 			if(direction == DFSSearch.LEFT){
 				// no left node,create newnode
 				adjacent.getLeft().add(currentWord);
@@ -156,16 +193,15 @@ public class SentenceTree {
 			}
 			addToDistList(currentWord,adjacent.getDistance()+1,direction);
 		}	
-		
+
 		if(currentLabel.equals("NULL") && (xLabel.equals(word))) {
 			//System.out.println("Node is present in the Tree at the same distance but adjacent to some other node ");
 			//Already present at the same distance, increment count and modify the left,right ref
-			
+
 			double w = x.getcount();
-		
 			currentWord.setcount(w);
 			currentWord.setLabel(word);
-			
+
 			if(direction == DFSSearch.LEFT){
 				// no left node,create newnode
 				adjacent.getLeft().add(currentWord);
@@ -185,9 +221,12 @@ public class SentenceTree {
 
 	public void calculateWeight(Node node){
 		double weight = node.getcount() - node.getDistance() * Math.log(node.getcount());
-		node.setweight(weight);
+		if(!isStopWord(node.getLabel()))
+			node.setweight(weight);
+		else
+			node.setweight(0);
 	}
-	
+
 	/**
 	 * MAIN: Add sentence to the root node. This constructs the terms graph.
 	 * @param sentence
@@ -198,7 +237,7 @@ public class SentenceTree {
 		String rootWord = root.getLabel();
 		int rootIndex = sentence.indexOf(rootWord);
 		Node temp = root;
-	
+
 		for(int i=rootIndex-1;i>=0;i--) { // Left Tree
 
 			temp = addWordToTree(sentence.get(i),temp,DFSSearch.LEFT);
@@ -212,7 +251,7 @@ public class SentenceTree {
 		}
 
 	}
-	
+
 	/**
 	 * Print tree corresponding to distance node list
 	 * @param root: Start node
@@ -250,5 +289,5 @@ public class SentenceTree {
 			}
 		}
 	}
-	
+
 }
