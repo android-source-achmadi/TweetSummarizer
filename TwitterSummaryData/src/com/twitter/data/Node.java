@@ -100,4 +100,11 @@ public class Node {
 		}
 		return this.label;
 	}
+	
+	public String getSummary(){
+		if(this.maxweightNode != null){
+			return this.maxweightNode.getSummary() + " " + this.label;
+		}
+		return this.label;
+	}
 }
