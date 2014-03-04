@@ -15,19 +15,21 @@ import com.google.gson.JsonParser;
 public class BuildTree {
 
 	public static void main(String[]args){
-		File file = new File("test4.txt");
+		File file = new File("./data/shawshank");
 		//ArrayList<ArrayList<String>> sentences = new ArrayList<ArrayList<String>>();
 		BufferedReader br;
 		try {
 			br = new BufferedReader(new FileReader(file));
 			String line;
 			CleanTweets cleanTweets = new CleanTweets();
+			ArrayList<String> originalTweets = new ArrayList<String>();
 			while ((line = br.readLine()) != null) {
 				try {
 					JsonObject o = new JsonParser().parse(line).getAsJsonObject();
 					TrendingTopic trendingTopic = new Gson().fromJson(o,TrendingTopic.class);
 					trendingTopic.topic = trendingTopic.topic.toLowerCase();
 					trendingTopic.topic = trendingTopic.topic.replaceAll("[^\\p{L}\\p{Nd}\\s]", "");
+					originalTweets.addAll(trendingTopic.tweets);
 					trendingTopic.tweets = cleanTweets.htmlToAscii(trendingTopic.tweets,trendingTopic.topic);
 					Iterator<String> i = trendingTopic.tweets.iterator();
 					SentenceTree sentenceTree = new SentenceTree();
@@ -70,12 +72,21 @@ public class BuildTree {
 							leftTree.addSentence(leftSentence,leftRoot);
 						}
 					}
-					//System.out.println("Left Summary Part:");
+
 					leftTree.printTree(leftRoot);
+
 					DFSSearch search = new DFSSearch();
 					Node result = search.DFSUpdateweight(DFSSearch.LEFT, leftRoot);
 					//System.out.println("The Maximum weight : "+ result.getMaxSumweight());
 					System.out.println("The Summarized Tweet : "+result.getMaxweightNodeString());
+					
+					ArrayList<String> originalPhrases = SimpleBestFit.reconstructTweet(result.getMaxweightNodeString(), originalTweets);
+					System.out.println("\n==Original==");
+					for (String originalPhrase : originalPhrases) {
+						System.out.println(originalPhrase);
+					}
+					System.out.println("==End==\n");
+					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

@@ -285,6 +285,7 @@ public class SentenceTree {
 				for(int l=0 ; l<RnodeListLength;l++) {
 					Node temp = RtempList.get(l);
 					//System.out.println("Distance: " + k + " ,\tLabel: " + temp.getLabel()+ " ,\tCount: "+ temp.getcount()+" ,\tWeight: "+temp.getweight());
+
 				}
 			}
 		}

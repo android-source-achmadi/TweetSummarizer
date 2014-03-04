@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,8 +27,43 @@ import com.google.gson.JsonParser;
 
 public class CleanTweets {
 	
+	/**
+	 * Expansion Rules to clean tweet
+	 */
+	public static final Hashtable<String, String> HashMap = new Hashtable<String, String>(){
+		private static final long serialVersionUID = 1L;
+
+		{	
+			put("don't", "do not");
+			put("doesn't", "does not");
+			put("i'm", "i am");
+			put("it's", "it is");
+			put("there's", "there is");
+			put("he's", "he is");
+			put("she's", "she is");
+			put("you're", "you are");
+			put("we're", "we are");
+			put("they're", "they are");
+			put("there're", "there are");
+			put("i'd", "i would");
+			put("he'd", "he would");
+			put("she'd", "she would");
+			put("you'd", "you would");
+			put("we'd", "we would");
+			put("they'd", "they would");
+			put("it'll", "it will");
+			put("i'll", "i will");
+			put("he'll", "he will");
+			put("she'll", "she will");
+			put("you'll", "you will");
+			put("we'll", "we will");
+			put("they'll", "they will");
+			
+		}
+	};
+	
 	public static void main(String[]args){
-		File file = new File("all_tweets.txt");
+		File file = new File("test3");
 		TrendingTopic[] trendingTopics = new TrendingTopic[56];
 		int topicCount = 0;
 		BufferedReader br;
@@ -36,10 +73,13 @@ public class CleanTweets {
 			CleanTweets cleanTweets = new CleanTweets();
 			while ((line = br.readLine()) != null) {
 				try {
+						System.out.println(line);
 						JsonObject o = new JsonParser().parse(line).getAsJsonObject();
 						TrendingTopic trendingTopic = new Gson().fromJson(o,TrendingTopic.class);
 						trendingTopic.topic = trendingTopic.topic.toLowerCase();
+						trendingTopic.topic = trendingTopic.topic.replaceAll("[^\\p{L}\\p{Nd}\\s]", "");
 						trendingTopic.tweets = cleanTweets.htmlToAscii(trendingTopic.tweets,trendingTopic.topic);
+						System.out.println(trendingTopic.tweets.size());
 						Iterator<String> i = trendingTopic.tweets.iterator();
 						while(i.hasNext()){
 							//System.out.println((String)i.next());
@@ -86,13 +126,18 @@ public class CleanTweets {
 			/*remove RT phrases*/
 			tweet = tweet.replace("RT", "");
 			/*remove @ from @mention*/
-			tweet = tweet.replaceAll("@\\w+:", " ");
+			tweet = tweet.replace("@", "");
 			/*convert alll tweets to lower case*/
 			tweet = tweet.toLowerCase();
+			/* abbreviation expansion */
+			tweet = abbreviationExpand(tweet);
 			/*replace multiple '.' with a single one*/
 			tweet = tweet.replaceAll("\\.+", ".");
 			/*replace all non-word characters*/
-			tweet = tweet.replaceAll("[^\\p{L}\\p{Nd}\\s]", " ");
+			tweet = tweet.replaceAll("[^_\\p{L}\\p{Nd}\\s]", " ");
+			/* remove noise one single character */
+			tweet = tweet.replaceAll("\\s{1}[^ai]{1}\\s{1}", " ");
+			tweet = tweet.replaceAll("\\s{1}[^ai]{1}$", "");
 			tweet = tweet.trim();
 			tempSentences=breakIntoSentences(tweet);
 			for(String tempSentence: tempSentences){
@@ -104,6 +149,17 @@ public class CleanTweets {
 		}
 		//System.out.println("after "+tweetSentences.size());
 		return tweetSentences;
+	}
+	
+	private String abbreviationExpand(String line){
+		String result = line;
+		Enumeration<String> e = HashMap.keys();
+		while(e.hasMoreElements()){
+			String key = e.nextElement();
+			String val = HashMap.get(key);
+			result = result.replaceAll(key, val);
+		}
+		return result;
 	}
 	
 	private String[] breakIntoSentences(String line){
