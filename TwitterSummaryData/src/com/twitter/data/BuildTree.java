@@ -15,19 +15,21 @@ import com.google.gson.JsonParser;
 public class BuildTree {
 
 	public static void main(String[]args){
-		File file = new File("test4.txt");
+		File file = new File("./data/valentine");
 		//ArrayList<ArrayList<String>> sentences = new ArrayList<ArrayList<String>>();
 		BufferedReader br;
 		try {
 			br = new BufferedReader(new FileReader(file));
 			String line;
 			CleanTweets cleanTweets = new CleanTweets();
+			ArrayList<String> originalTweets = new ArrayList<String>();
 			while ((line = br.readLine()) != null) {
 				try {
 					JsonObject o = new JsonParser().parse(line).getAsJsonObject();
 					TrendingTopic trendingTopic = new Gson().fromJson(o,TrendingTopic.class);
 					trendingTopic.topic = trendingTopic.topic.toLowerCase();
 					trendingTopic.topic = trendingTopic.topic.replaceAll("[^\\p{L}\\p{Nd}\\s]", "");
+					originalTweets.addAll(trendingTopic.tweets);
 					trendingTopic.tweets = cleanTweets.htmlToAscii(trendingTopic.tweets,trendingTopic.topic);
 					Iterator<String> i = trendingTopic.tweets.iterator();
 					SentenceTree sentenceTree = new SentenceTree();
@@ -48,6 +50,12 @@ public class BuildTree {
 					System.out.println("The Maximum weight : "+ rightResult.getMaxSumweight());
 					System.out.println("Right Summary & new root: " + rightSummary);
 
+					ArrayList<String> originalPhrases = SimpleBestFit.reconstructTweet(rightResult.getMaxweightNodeString(), originalTweets);
+					System.out.println("==Original==");
+					for (String originalPhrase : originalPhrases) {
+						System.out.println(originalPhrase);
+					}
+					
 					// Building Left Summary
 					Iterator<String> i2 = trendingTopic.tweets.iterator();
 					SentenceTree leftTree = new SentenceTree();
@@ -76,6 +84,9 @@ public class BuildTree {
 					Node result = search.DFSUpdateweight(DFSSearch.LEFT, leftRoot);
 					System.out.println("The Maximum weight : "+ result.getMaxSumweight());
 					System.out.println("The Summarized Tweet : "+result.getMaxweightNodeString());
+					
+					
+					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
