@@ -15,7 +15,7 @@ import com.google.gson.JsonParser;
 public class BuildTree {
 
 	public static void main(String[]args){
-		File file = new File("./data/shawshank");
+		File file = new File("test4.txt");
 		//ArrayList<ArrayList<String>> sentences = new ArrayList<ArrayList<String>>();
 		BufferedReader br;
 		try {
@@ -78,14 +78,14 @@ public class BuildTree {
 					DFSSearch search = new DFSSearch();
 					Node result = search.DFSUpdateweight(DFSSearch.LEFT, leftRoot);
 					//System.out.println("The Maximum weight : "+ result.getMaxSumweight());
-					System.out.println("The Summarized Tweet : "+result.getMaxweightNodeString());
+					//System.out.println("The Summarized Tweet : "+result.getMaxweightNodeString());
 					
 					ArrayList<String> originalPhrases = SimpleBestFit.reconstructTweet(result.getMaxweightNodeString(), originalTweets);
-					System.out.println("\n==Original==");
-					for (String originalPhrase : originalPhrases) {
-						System.out.println(originalPhrase);
-					}
-					System.out.println("==End==\n");
+//					System.out.println("\n==Original==");
+//					for (String originalPhrase : originalPhrases) {
+//						System.out.println(originalPhrase);
+//					}
+//					System.out.println("==End==\n");
 					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
