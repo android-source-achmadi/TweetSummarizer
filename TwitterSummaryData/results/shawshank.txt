@@ -1,0 +1,14 @@
+size before 1:478
+after 477
+Right Summary Part:
+The Maximum weight : 308.30888656895286
+Right Summary & new root: shawshank redemption the shawshank redemption what a film i can never wipe the smile off ma face during the last 15 minutes gets me every time
+Left Summary Part:
+The Maximum weight : 0.0
+The Summarized Tweet : shawshank redemption the shawshank redemption what a film i can never wipe the smile off ma face during the last 15 minutes gets me every time
+shawshank redemption the shawshank redemption what a film i can never wipe the smile off ma face during the last 15 minutes gets me every time
+
+==Original==
+The Shawshank Redemption: what a film, I can never wipe the smile off ma face during the last 15 minutes. Gets me every time.
+==End==
+

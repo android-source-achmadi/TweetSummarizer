@@ -1,0 +1,15 @@
+size before 1:260
+after 224
+Right Summary Part:
+The Maximum weight : 17.2241841347117
+Right Summary & new root: putin ready to invade ukraine obama warns moscow of political and economic isolation russian presid boston
+putin ready to invade ukraine obama warns moscow of political and economic isolation russian presid boston
+
+==Original==
+Putin ready to invade Ukraine Obama warns Moscow of 'political and economic isolation': Russian Presid... http://t.co/WxX22eqQzX #boston
+==End==
+
+Found a matching tweet:putin ready to invade ukraine obama warns moscow of political and economic isolation russian presid boston
+Left Summary Part:
+The Maximum weight : 0.0
+The Summarized Tweet : putin ready to invade ukraine obama warns moscow of political and economic isolation russian presid boston
