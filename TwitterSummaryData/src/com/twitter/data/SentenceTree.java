@@ -268,7 +268,7 @@ public class SentenceTree {
 				int nodeListLength = tempList.size();
 				for(int j=0 ; j<nodeListLength;j++) {
 					Node temp = tempList.get(j);
-					System.out.println("Distance: " + i + " ,\tLabel: " + temp.getLabel() + " ,\tCount: "+ temp.getcount() +" ,\tWeight: "+temp.getweight());
+//					System.out.println("Distance: " + i + " ,\tLabel: " + temp.getLabel() + " ,\tCount: "+ temp.getcount() +" ,\tWeight: "+temp.getweight());
 				}
 			}
 		}
@@ -284,7 +284,7 @@ public class SentenceTree {
 				int RnodeListLength = RtempList.size();
 				for(int l=0 ; l<RnodeListLength;l++) {
 					Node temp = RtempList.get(l);
-					System.out.println("Distance: " + k + " ,\tLabel: " + temp.getLabel()+ " ,\tCount: "+ temp.getcount()+" ,\tWeight: "+temp.getweight());
+//					System.out.println("Distance: " + k + " ,\tLabel: " + temp.getLabel()+ " ,\tCount: "+ temp.getcount()+" ,\tWeight: "+temp.getweight());
 				}
 			}
 		}

@@ -15,7 +15,7 @@ import com.google.gson.JsonParser;
 public class BuildTree {
 
 	public static void main(String[]args){
-		File file = new File("./data/valentine");
+		File file = new File("./data/vancouver");
 		//ArrayList<ArrayList<String>> sentences = new ArrayList<ArrayList<String>>();
 		BufferedReader br;
 		try {
@@ -43,7 +43,7 @@ public class BuildTree {
 						sentenceTree.addSentence(sentence,root);
 					}
 					System.out.println("Right Summary Part:");
-					sentenceTree.printTree(root);
+//					sentenceTree.printTree(root);
 					DFSSearch rightSearch = new DFSSearch();
 					Node rightResult = rightSearch.DFSUpdateweight(DFSSearch.RIGHT, root);
 					String rightSummary = rightResult.getMaxweightNodeString();
@@ -55,6 +55,7 @@ public class BuildTree {
 					for (String originalPhrase : originalPhrases) {
 						System.out.println(originalPhrase);
 					}
+					System.out.println("==End==");
 					
 					// Building Left Summary
 					Iterator<String> i2 = trendingTopic.tweets.iterator();
@@ -79,7 +80,7 @@ public class BuildTree {
 						}
 					}
 					System.out.println("Left Summary Part:");
-					leftTree.printTree(leftRoot);
+//					leftTree.printTree(leftRoot);
 					DFSSearch search = new DFSSearch();
 					Node result = search.DFSUpdateweight(DFSSearch.LEFT, leftRoot);
 					System.out.println("The Maximum weight : "+ result.getMaxSumweight());
