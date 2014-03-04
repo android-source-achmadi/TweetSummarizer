@@ -100,9 +100,4 @@ public class Node {
 		}
 		return this.label;
 	}
-<<<<<<< HEAD
-	
-	
-=======
->>>>>>> 3e38d9bcf0b659eb5d2d602e69e583e3265eb872
 }
