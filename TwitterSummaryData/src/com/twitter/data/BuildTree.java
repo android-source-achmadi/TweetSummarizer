@@ -15,7 +15,7 @@ import com.google.gson.JsonParser;
 public class BuildTree {
 
 	public static void main(String[]args){
-		File file = new File("./data/vancouver");
+		File file = new File("./data/shawshank");
 		//ArrayList<ArrayList<String>> sentences = new ArrayList<ArrayList<String>>();
 		BufferedReader br;
 		try {
@@ -50,13 +50,6 @@ public class BuildTree {
 					System.out.println("The Maximum weight : "+ rightResult.getMaxSumweight());
 					System.out.println("Right Summary & new root: " + rightSummary);
 
-					ArrayList<String> originalPhrases = SimpleBestFit.reconstructTweet(rightResult.getMaxweightNodeString(), originalTweets);
-					System.out.println("==Original==");
-					for (String originalPhrase : originalPhrases) {
-						System.out.println(originalPhrase);
-					}
-					System.out.println("==End==");
-					
 					// Building Left Summary
 					Iterator<String> i2 = trendingTopic.tweets.iterator();
 					SentenceTree leftTree = new SentenceTree();
@@ -86,7 +79,12 @@ public class BuildTree {
 					System.out.println("The Maximum weight : "+ result.getMaxSumweight());
 					System.out.println("The Summarized Tweet : "+result.getMaxweightNodeString());
 					
-					
+					ArrayList<String> originalPhrases = SimpleBestFit.reconstructTweet(result.getMaxweightNodeString(), originalTweets);
+					System.out.println("\n==Original==");
+					for (String originalPhrase : originalPhrases) {
+						System.out.println(originalPhrase);
+					}
+					System.out.println("==End==\n");
 					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block

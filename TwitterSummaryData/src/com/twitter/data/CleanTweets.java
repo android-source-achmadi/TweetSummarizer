@@ -45,6 +45,20 @@ public class CleanTweets {
 			put("we're", "we are");
 			put("they're", "they are");
 			put("there're", "there are");
+			put("i'd", "i would");
+			put("he'd", "he would");
+			put("she'd", "she would");
+			put("you'd", "you would");
+			put("we'd", "we would");
+			put("they'd", "they would");
+			put("it'll", "it will");
+			put("i'll", "i will");
+			put("he'll", "he will");
+			put("she'll", "she will");
+			put("you'll", "you will");
+			put("we'll", "we will");
+			put("they'll", "they will");
+			
 		}
 	};
 	

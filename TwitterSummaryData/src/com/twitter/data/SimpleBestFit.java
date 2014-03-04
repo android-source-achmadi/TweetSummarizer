@@ -20,7 +20,7 @@ public class SimpleBestFit {
 				expansionToCheck.add(val);
 				expansionToCheck.add(key);
 				finalTweet = finalTweet.replace(val, "");
-				System.out.println(finalTweet);
+//				System.out.println(finalTweet);
 			}
 		}
 		
@@ -51,8 +51,8 @@ public class SimpleBestFit {
 		// get all original tweets containing keyword. It's OR
 		for (int i = 0; i < expansionToCheck.size(); i++) {
 			for (String tweet : tweets) {
-				System.out.println(tweet);
-				System.out.println(expansionToCheck.get(i));
+//				System.out.println(tweet);
+//				System.out.println(expansionToCheck.get(i));
 				if (tweet.toLowerCase().contains(expansionToCheck.get(i))){
 					if (!resultTweets.containsKey(tweet)){
 						resultTweets.put(tweet, true);
