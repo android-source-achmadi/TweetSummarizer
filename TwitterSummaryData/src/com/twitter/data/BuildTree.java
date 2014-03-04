@@ -40,13 +40,13 @@ public class BuildTree {
 						}
 						sentenceTree.addSentence(sentence,root);
 					}
-					System.out.println("Right Summary Part:");
+					System.out.println(trendingTopic.topic);
 					sentenceTree.printTree(root);
 					DFSSearch rightSearch = new DFSSearch();
 					Node rightResult = rightSearch.DFSUpdateweight(DFSSearch.RIGHT, root);
 					String rightSummary = rightResult.getMaxweightNodeString();
-					System.out.println("The Maximum weight : "+ rightResult.getMaxSumweight());
-					System.out.println("Right Summary & new root: " + rightSummary);
+					//System.out.println("The Maximum weight : "+ rightResult.getMaxSumweight());
+					//System.out.println("Right Summary & new root: " + rightSummary);
 
 					// Building Left Summary
 					Iterator<String> i2 = trendingTopic.tweets.iterator();
@@ -57,7 +57,7 @@ public class BuildTree {
 						String nextTweet = (String)i2.next().replaceAll("( )+", " ");
 						//System.out.println(nextTweet);
 						if(nextTweet.contains(rightSummary)){
-							System.out.println("Found a matching tweet:" + nextTweet);
+							//System.out.println("Found a matching tweet:" + nextTweet);
 							ArrayList<String> leftSentence = new ArrayList<String>();
 							StringTokenizer st = new StringTokenizer(nextTweet);
 							String nextToken = st.nextToken() ;
@@ -70,18 +70,17 @@ public class BuildTree {
 							leftTree.addSentence(leftSentence,leftRoot);
 						}
 					}
-					System.out.println("Left Summary Part:");
+					//System.out.println("Left Summary Part:");
 					leftTree.printTree(leftRoot);
 					DFSSearch search = new DFSSearch();
 					Node result = search.DFSUpdateweight(DFSSearch.LEFT, leftRoot);
-					System.out.println("The Maximum weight : "+ result.getMaxSumweight());
+					//System.out.println("The Maximum weight : "+ result.getMaxSumweight());
 					System.out.println("The Summarized Tweet : "+result.getMaxweightNodeString());
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 					continue;
 				}
-				break;
 			}
 
 

@@ -40,13 +40,13 @@ public class SummaryData {
 	    	applicationProperties.load(inputStream);
 	    	
     	}catch(Exception ioe){
-    		System.out.println("The applicationProperties file was not found. Exiting Application");
-    		System.exit(1);
+    		//System.out.println("The applicationProperties file was not found. Exiting Application");
+    		//System.exit(1);
     	}finally{
     		try{
     			inputStream.close();
     		}catch(IOException e){
-    			System.out.println("Exception closing Application Properties input stream");
+    			//System.out.println("Exception closing Application Properties input stream");
     		}
     	}
     }
@@ -92,7 +92,7 @@ public class SummaryData {
 				/*write the tweets to a file */
 					if(tweetsData.size()>=250){
 						String json = gson.toJson(new TrendingTopic(URLDecoder.decode(trendingTopics[i], "ASCII"),tweetsData));
-						System.out.println(json);
+						//System.out.println(json);
 						out.write(json+"\n");
 					}
 				}catch (TwitterException e) {
@@ -103,7 +103,7 @@ public class SummaryData {
 	    	out.close();
 	    }catch (IOException e)
 		{
-		    System.out.println("Error: " + e.getMessage());
+		    //System.out.println("Error: " + e.getMessage());
 		} 
     }
     
@@ -124,7 +124,7 @@ public class SummaryData {
 		    	}
     		}
     	}catch(Exception e){
-    		System.out.println("Exception while retreiving trends "+e);
+    		//System.out.println("Exception while retreiving trends "+e);
     	}
     	return trendingTopics.toArray(trendingTopicsS);
     }

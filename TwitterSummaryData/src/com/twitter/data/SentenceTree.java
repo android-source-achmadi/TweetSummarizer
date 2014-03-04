@@ -172,11 +172,11 @@ public class SentenceTree {
 		//double currentDist = adjacent.getDistance() +1.0;
 
 		String xLabel = x.getLabel();
-		//System.out.println("currentLabel = "+currentLabel);
+		////System.out.println("currentLabel = "+currentLabel);
 
 		// Node is absent in both Tree and Distance List
 		if(currentLabel.equals("NULL") && xLabel.equals("NULL")) {
-			//System.out.println("Node is absent in both Tree and Distance List ");
+			////System.out.println("Node is absent in both Tree and Distance List ");
 			currentWord = new Node(word,1.0,0.0);
 
 
@@ -195,7 +195,7 @@ public class SentenceTree {
 		}	
 
 		if(currentLabel.equals("NULL") && (xLabel.equals(word))) {
-			//System.out.println("Node is present in the Tree at the same distance but adjacent to some other node ");
+			////System.out.println("Node is present in the Tree at the same distance but adjacent to some other node ");
 			//Already present at the same distance, increment count and modify the left,right ref
 
 			double w = x.getcount();
@@ -241,13 +241,13 @@ public class SentenceTree {
 		for(int i=rootIndex-1;i>=0;i--) { // Left Tree
 
 			temp = addWordToTree(sentence.get(i),temp,DFSSearch.LEFT);
-			//System.out.println("Current Node: "+temp.getLabel()+" Frequency = "+temp.getcount()+" Distance = "+temp.getDistance()+ " Weight = "+temp.getweight()+"\n");
+			////System.out.println("Current Node: "+temp.getLabel()+" Frequency = "+temp.getcount()+" Distance = "+temp.getDistance()+ " Weight = "+temp.getweight()+"\n");
 		}
 		temp = root;
 		for(int i=rootIndex+1;i<length;i++) { // Right Tree
 
 			temp = addWordToTree(sentence.get(i),temp,DFSSearch.RIGHT);
-			//System.out.println("Right Current Node: "+temp.getLabel()+" Frequency = "+temp.getcount()+" Distance = "+temp.getDistance()+ " Weight = "+temp.getweight()+"\n");
+			////System.out.println("Right Current Node: "+temp.getLabel()+" Frequency = "+temp.getcount()+" Distance = "+temp.getDistance()+ " Weight = "+temp.getweight()+"\n");
 		}
 
 	}
@@ -259,8 +259,8 @@ public class SentenceTree {
 	public void printTree(Node root){
 
 		int distListLength = LeftDistNodeList.size();
-		System.out.println("Root Node : " + root.getLabel());
-		System.out.println("Left Tree :");
+		//System.out.println("Root Node : " + root.getLabel());
+		//System.out.println("Left Tree :");
 		for(int i=1;i<=distListLength;i++) {
 			Double d = new Double(i);
 			ArrayList<Node> tempList = LeftDistNodeList.get(d);
@@ -268,12 +268,12 @@ public class SentenceTree {
 				int nodeListLength = tempList.size();
 				for(int j=0 ; j<nodeListLength;j++) {
 					Node temp = tempList.get(j);
-					System.out.println("Distance: " + i + " ,\tLabel: " + temp.getLabel() + " ,\tCount: "+ temp.getcount() +" ,\tWeight: "+temp.getweight());
+					//System.out.println("Distance: " + i + " ,\tLabel: " + temp.getLabel() + " ,\tCount: "+ temp.getcount() +" ,\tWeight: "+temp.getweight());
 				}
 			}
 		}
-		System.out.println();
-		System.out.println("Right Tree :"); 
+		//System.out.println();
+		//System.out.println("Right Tree :"); 
 		distListLength = RightDistNodeList.size();
 		//while(RkeyIterator.hasNext()){
 		//	Double key = RkeyIterator.next();
@@ -284,7 +284,7 @@ public class SentenceTree {
 				int RnodeListLength = RtempList.size();
 				for(int l=0 ; l<RnodeListLength;l++) {
 					Node temp = RtempList.get(l);
-					System.out.println("Distance: " + k + " ,\tLabel: " + temp.getLabel()+ " ,\tCount: "+ temp.getcount()+" ,\tWeight: "+temp.getweight());
+					//System.out.println("Distance: " + k + " ,\tLabel: " + temp.getLabel()+ " ,\tCount: "+ temp.getcount()+" ,\tWeight: "+temp.getweight());
 				}
 			}
 		}

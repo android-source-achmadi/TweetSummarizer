@@ -8,7 +8,7 @@ public class DFSSearch {
 
 	public Node DFSUpdateweight(int direction, Node node) {
 		// stop condition
-//		System.out.println(node.getLabel());
+//		//System.out.println(node.getLabel());
 		ArrayList<Node> children;
 		
 		if (direction == DFSSearch.LEFT) {
@@ -24,7 +24,7 @@ public class DFSSearch {
 		
 		// node has been visited
 		if(node.getMaxSumweight() != 0){
-			System.out.println(node.getLabel() + " has been visited");
+			//System.out.println(node.getLabel() + " has been visited");
 			return node;
 		}
 
@@ -64,7 +64,7 @@ public class DFSSearch {
 		root.getRight().add(node2);
 		DFSSearch search = new DFSSearch();
 		Node result = search.DFSUpdateweight(DFSSearch.RIGHT, root);
-		System.out.println(result.getMaxSumweight());
-		System.out.println(result.getMaxweightNodeString());
+		//System.out.println(result.getMaxSumweight());
+		//System.out.println(result.getMaxweightNodeString());
 	}
 }

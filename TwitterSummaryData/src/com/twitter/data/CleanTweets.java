@@ -42,7 +42,7 @@ public class CleanTweets {
 						trendingTopic.tweets = cleanTweets.htmlToAscii(trendingTopic.tweets,trendingTopic.topic);
 						Iterator<String> i = trendingTopic.tweets.iterator();
 						while(i.hasNext()){
-							System.out.println((String)i.next());
+							//System.out.println((String)i.next());
 						}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -69,7 +69,7 @@ public class CleanTweets {
 		String[] tempSentences;
 		Iterator<String> i = tweets.iterator();
 		String tweet;
-		System.out.println("size before 1"+tweets.size());
+		//System.out.println("size before 1"+tweets.size());
 		while(i.hasNext()){
 			tweet = (String)i.next();
 			/*Convert HTML characters to ASCII */
@@ -102,7 +102,7 @@ public class CleanTweets {
 				}
 			}
 		}
-		System.out.println("after "+tweetSentences.size());
+		//System.out.println("after "+tweetSentences.size());
 		return tweetSentences;
 	}
 	
