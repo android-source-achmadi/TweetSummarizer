@@ -15,7 +15,7 @@ import com.google.gson.JsonParser;
 public class BuildTree {
 
 	public static void main(String[]args){
-		File file = new File("test4.txt");
+		File file = new File("all_tweets.txt");
 		//ArrayList<ArrayList<String>> sentences = new ArrayList<ArrayList<String>>();
 		BufferedReader br;
 		try {
