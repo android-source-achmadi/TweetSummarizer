@@ -67,7 +67,7 @@ public class SummaryData {
     	HashMap<String,ArrayList> twitterDataSet = new HashMap<String,ArrayList>();
     	try  
 		{
-		    FileWriter fstream = new FileWriter("1Mar2am.txt", false); //true tells to append data.
+		    FileWriter fstream = new FileWriter("4Mar9pm.txt", false); //true tells to append data.
 		    BufferedWriter out = null;
 		    out = new BufferedWriter(fstream);
 	    	for(int i=0;i<trendingTopics.length;i++){
