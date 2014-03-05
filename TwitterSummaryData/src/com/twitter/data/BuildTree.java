@@ -27,7 +27,7 @@ public class BuildTree {
 			String line;
 			CleanTweets cleanTweets = new CleanTweets();
 			ArrayList<String> originalTweets = new ArrayList<String>();
-			Node finalResult;
+			Node finalResult = new Node();
 			ArrayList<String> originalPhrases = new ArrayList<String>();
 			while ((line = br.readLine()) != null) {
 				try {
@@ -44,12 +44,14 @@ public class BuildTree {
 						ArrayList<String> sentence = new ArrayList<String>();
 						StringTokenizer st = new StringTokenizer((String)i.next());
 						while(st.hasMoreTokens()){
+							
 							sentence.add(st.nextToken());
 						}
 						sentenceTree.addSentence(sentence,root);
 					}
-					System.out.println(trendingTopic.topic);
-					sentenceTree.printTree(root);
+					System.out.println("============================================");
+					System.out.println("Trending Topic: "+ trendingTopic.topic);
+				//	sentenceTree.printTree(root);
 					DFSSearch search = new DFSSearch();
 					root = search.DFSUpdateweight(DFSSearch.RIGHT, root);
 					double rightResult = root.getMaxSumweight();
@@ -59,13 +61,13 @@ public class BuildTree {
 					double leftResult = root.getMaxSumweight(); 
 					String leftSummary = root.getSummary();
 					int maxDirection = (rightResult >= leftResult)?DFSSearch.RIGHT:DFSSearch.LEFT;
-					System.out.println("The Right Maximum weight : "+ rightResult);
-					System.out.println("The Left Maximum weight : "+ leftResult);
+				//	System.out.println("The Right Maximum weight : "+ rightResult);
+				//	System.out.println("The Left Maximum weight : "+ leftResult);
 
 
 					// Building Left Summary because Right Tree has the highest Weight
 					if(maxDirection == DFSSearch.RIGHT) {
-						System.out.println("Right Summary  & new root: " + rightSummary);
+					//	System.out.println("Right Summary  & new root: " + rightSummary);
 						Iterator<String> i2 = trendingTopic.tweets.iterator();
 						SentenceTree leftTree = new SentenceTree();
 						Node leftRoot = new Node(rightSummary, 1,0);
@@ -73,7 +75,7 @@ public class BuildTree {
 
 							String nextTweet = (String)i2.next().replaceAll("( )+", " ");
 							if(nextTweet.contains(rightSummary)){
-								System.out.println("Found a matching tweet:" + nextTweet);
+						//		System.out.println("Found a matching tweet:" + nextTweet);
 								ArrayList<String> leftSentence = new ArrayList<String>();
 								StringTokenizer st = new StringTokenizer(nextTweet);
 								String nextToken = st.nextToken() ;
@@ -86,16 +88,16 @@ public class BuildTree {
 								leftTree.addSentence(leftSentence,leftRoot);
 							}
 						}
-						//System.out.println("Left Summary Part:");
-						leftTree.printTree(leftRoot);
+				//		System.out.println("Left Summary Part:");
+				//	leftTree.printTree(leftRoot);
 						DFSSearch search2 = new DFSSearch();
 						finalResult = search2.DFSUpdateweight(DFSSearch.LEFT, leftRoot);
-						System.out.println("The Maximum weight : "+ result.getMaxSumweight());
-						System.out.println("The Summarized Tweet : "+result.getMaxweightNodeString());
+						//System.out.println("The Maximum weight : "+ result.getMaxSumweight());
+						//System.out.println("The Summarized Tweet : "+result.getMaxweightNodeString());
 					}
 					// Building Right Summary because Left Tree has the highest Weight
 					if(maxDirection == DFSSearch.LEFT) {
-						System.out.println("Left Summary  & new root: " + leftSummary );
+						//System.out.println("Left Summary  & new root: " + leftSummary );
 						Iterator<String> i2 = trendingTopic.tweets.iterator();
 						SentenceTree rightTree = new SentenceTree();
 						Node rightRoot = new Node(leftSummary, 1,0);
@@ -103,41 +105,47 @@ public class BuildTree {
 
 							String nextTweet = (String)i2.next().replaceAll("( )+", " ");
 							if(nextTweet.contains(leftSummary)){
-								System.out.println("Found a matching tweet:" + nextTweet);
+							//	System.out.println("Found a matching tweet:" + nextTweet);
 								ArrayList<String> rightSentence = new ArrayList<String>();
 								StringTokenizer st = new StringTokenizer(nextTweet);
 								String nextToken = st.nextToken() ;
 								rightSentence.add(leftSummary);
 								int flag = 0;
-								while(nextToken!= null){ 
+								while(st.hasMoreTokens()){ 
+									//System.out.println(" Next Tweet Token : " + nextToken);
 									if(flag == 1){
 										rightSentence.add(nextToken);
 									}
 									if(nextToken.equals(trendingTopic.topic))
 										flag = 1;
-									nextToken = st.nextToken();
+									if(st.hasMoreTokens())
+										nextToken = st.nextToken();
 								}
+								rightSentence.add(leftSummary);
+								rightTree.addSentence(rightSentence,rightRoot);
 							}
-							rightSentence.add(leftSummary);
-							rightTree.addSentence(rightSentence,rightRoot);
+							
 						}
+					//	System.out.println("Right Summary Part:");
+						//rightTree.printTree(rightRoot);
+						DFSSearch search3 = new DFSSearch();
+						finalResult = search3.DFSUpdateweight(DFSSearch.RIGHT, rightRoot);
 					}
-					System.out.println("Right Summary Part:");
-					rightTree.printTree(rightRoot);
-					DFSSearch search3 = new DFSSearch();
-					finalResult = search3.DFSUpdateweight(DFSSearch.RIGHT, rightRoot);
 					
-				}
-			}
+					
+				
+			
 			
 			//System.out.println("The Maximum weight : "+ result.getMaxSumweight());
 			//System.out.println("The Summarized Tweet : "+result.getMaxweightNodeString());
 
 			originalPhrases = SimpleBestFit.reconstructTweet(finalResult.getMaxweightNodeString(), originalTweets);
-			//					System.out.println("\n==Original==");
-			//					for (String originalPhrase : originalPhrases) {
-			//						System.out.println(originalPhrase);
-			//					}
+								System.out.println("Summarized Tweet: ");
+								for (String originalPhrase : originalPhrases) {
+									System.out.print(originalPhrase);
+									System.out.println("============================================");
+									break;
+							}
 			//					System.out.println("==End==\n");
 
 		} catch (Exception e) {

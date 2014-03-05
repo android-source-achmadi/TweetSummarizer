@@ -24,7 +24,7 @@ public class SimpleBestFit {
 			}
 		}
 		
-		System.out.println(finalTweet);
+		System.out.println("Raw Summary: "+finalTweet);
 		
 		Hashtable<String, Boolean> resultTweets = new Hashtable<String, Boolean>();
 
