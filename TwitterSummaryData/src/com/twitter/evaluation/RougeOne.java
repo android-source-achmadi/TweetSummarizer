@@ -1,17 +1,42 @@
 package com.twitter.evaluation;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 public class RougeOne {
 	
 	public static void main(String[] args){
-		String[] manualSummary = {"this,is a sentence","like this"};
-		String[] generatedSummary = {"this is ","like that"};
-		RougeOne rOne = new RougeOne();
-		float recall = rOne.getRecall(manualSummary, generatedSummary);
-		System.out.println(recall);
-		float precision = rOne.getPrecision(manualSummary, generatedSummary);
-		System.out.println(precision);
-		float fMeasure = 2*(precision * recall)/(precision+recall);
-		System.out.println(fMeasure);
+		File file = new File("Evaluation.txt");
+		String line;
+		BufferedReader br;
+		try{
+			br = new BufferedReader(new FileReader(file));
+			while ((line = br.readLine()) != null) {
+				try {
+					JsonObject o = new JsonParser().parse(line).getAsJsonObject();
+					String[] manualSummary = {o.get("manual").getAsString()};
+					String[] generatedSummary = {o.get("auto").getAsString()};
+					RougeOne rOne = new RougeOne();
+					float recall = rOne.getRecall(manualSummary, generatedSummary);
+					System.out.println("recall: "+recall);
+					float precision = rOne.getPrecision(manualSummary, generatedSummary);
+					System.out.println("precision: "+precision);
+					float fMeasure = 2*(precision * recall)/(precision+recall);
+					System.out.println("fMeasure: "+fMeasure);
+				}catch(Exception e){
+					System.out.println("Exception exception!!");
+					e.printStackTrace();
+				}
+			}
+		}catch(IOException ie){
+			System.out.println(ie);
+		}
 	}
 	
 	public float getRecall(String[] manualSummaries, String[] generatedSummaries){
