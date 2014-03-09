@@ -1,9 +1,11 @@
 package com.twitter.data;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.StringTokenizer;
@@ -21,10 +23,18 @@ public class BuildTree {
 	public static void main(String[]args){
 		File file = new File("all_tweets.txt");
 		//ArrayList<ArrayList<String>> sentences = new ArrayList<ArrayList<String>>();
+		Gson gson = new Gson();
+		ArrayList<TrendingTopic> summarizedTrendingTopics = new ArrayList<TrendingTopic>();
+		JsonObject summarizedTrendingTopicsObject = new JsonObject();
 		BufferedReader br;
 		try {
 			br = new BufferedReader(new FileReader(file));
+			FileWriter fstream = new FileWriter("rawData.json", false); //true tells to append data.
+		    BufferedWriter out = null;
+		    
+		    out = new BufferedWriter(fstream);
 			String line;
+			int idCounter = 0;
 			CleanTweets cleanTweets = new CleanTweets();
 			ArrayList<String> originalTweets = new ArrayList<String>();
 			Node finalResult = new Node();
@@ -35,6 +45,7 @@ public class BuildTree {
 					TrendingTopic trendingTopic = new Gson().fromJson(o,TrendingTopic.class);
 					trendingTopic.topic = trendingTopic.topic.toLowerCase();
 					trendingTopic.topic = trendingTopic.topic.replaceAll("[^\\p{L}\\p{Nd}\\s]", "");
+					originalTweets.clear();
 					originalTweets.addAll(trendingTopic.tweets);
 					trendingTopic.tweets = cleanTweets.htmlToAscii(trendingTopic.tweets,trendingTopic.topic);
 					Iterator<String> i = trendingTopic.tweets.iterator();
@@ -51,6 +62,7 @@ public class BuildTree {
 					}
 					System.out.println("============================================");
 					System.out.println("Trending Topic: "+ trendingTopic.topic);
+					trendingTopic.id = ++idCounter;
 				//	sentenceTree.printTree(root);
 					DFSSearch search = new DFSSearch();
 					root = search.DFSUpdateweight(DFSSearch.RIGHT, root);
@@ -61,10 +73,6 @@ public class BuildTree {
 					double leftResult = root.getMaxSumweight(); 
 					String leftSummary = root.getSummary();
 					int maxDirection = (rightResult >= leftResult)?DFSSearch.RIGHT:DFSSearch.LEFT;
-				//	System.out.println("The Right Maximum weight : "+ rightResult);
-				//	System.out.println("The Left Maximum weight : "+ leftResult);
-
-
 					// Building Left Summary because Right Tree has the highest Weight
 					if(maxDirection == DFSSearch.RIGHT) {
 					//	System.out.println("Right Summary  & new root: " + rightSummary);
@@ -88,12 +96,9 @@ public class BuildTree {
 								leftTree.addSentence(leftSentence,leftRoot);
 							}
 						}
-				//		System.out.println("Left Summary Part:");
 				//	leftTree.printTree(leftRoot);
 						DFSSearch search2 = new DFSSearch();
 						finalResult = search2.DFSUpdateweight(DFSSearch.LEFT, leftRoot);
-						//System.out.println("The Maximum weight : "+ result.getMaxSumweight());
-						//System.out.println("The Summarized Tweet : "+result.getMaxweightNodeString());
 					}
 					// Building Right Summary because Left Tree has the highest Weight
 					if(maxDirection == DFSSearch.LEFT) {
@@ -105,14 +110,12 @@ public class BuildTree {
 
 							String nextTweet = (String)i2.next().replaceAll("( )+", " ");
 							if(nextTweet.contains(leftSummary)){
-							//	System.out.println("Found a matching tweet:" + nextTweet);
 								ArrayList<String> rightSentence = new ArrayList<String>();
 								StringTokenizer st = new StringTokenizer(nextTweet);
 								String nextToken = st.nextToken() ;
 								rightSentence.add(leftSummary);
 								int flag = 0;
 								while(st.hasMoreTokens()){ 
-									//System.out.println(" Next Tweet Token : " + nextToken);
 									if(flag == 1){
 										rightSentence.add(nextToken);
 									}
@@ -131,31 +134,39 @@ public class BuildTree {
 						DFSSearch search3 = new DFSSearch();
 						finalResult = search3.DFSUpdateweight(DFSSearch.RIGHT, rightRoot);
 					}
-					
-					
-				
-			
-			
 			//System.out.println("The Maximum weight : "+ result.getMaxSumweight());
 			//System.out.println("The Summarized Tweet : "+result.getMaxweightNodeString());
 
 			originalPhrases = SimpleBestFit.reconstructTweet(finalResult.getMaxweightNodeString(), originalTweets);
 								System.out.println("Summarized Tweet: ");
 								for (String originalPhrase : originalPhrases) {
+									trendingTopic.autoSummary=originalPhrase;
 									System.out.print(originalPhrase);
 									System.out.println("============================================");
 									break;
 							}
-			//					System.out.println("==End==\n");
-
+		trendingTopic.tweets.clear();
+		trendingTopic.tweets.addAll(originalTweets);
+		while(trendingTopic.tweets.size()>200){
+			trendingTopic.tweets.remove(trendingTopic.tweets.size()-1);
+		}
+		FileWriter individualFstream = new FileWriter("dataUI/"+trendingTopic.id+".json", false); //true tells to append data.
+		BufferedWriter individualOut = new BufferedWriter(individualFstream);
+		JsonObject individualTopic = new JsonObject();
+		individualTopic.add(""+trendingTopic.id, (new JsonParser().parse(gson.toJson(trendingTopic))).getAsJsonObject());
+		individualOut.write(gson.toJson(individualTopic));
+		individualOut.close();
+		trendingTopic.tweets.clear();
+		summarizedTrendingTopicsObject.add(""+trendingTopic.id,(new JsonParser().parse(gson.toJson(trendingTopic))).getAsJsonObject());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			continue;
 		}
 	}
-
-
+	String jsonData = gson.toJson(summarizedTrendingTopicsObject);
+	out.write(jsonData);	
+	out.close();
 	br.close();
 } catch (FileNotFoundException e1) {
 	// TODO Auto-generated catch block
@@ -164,54 +175,6 @@ public class BuildTree {
 	e2.printStackTrace();
 }
 
-
 }
-//	public static void main(String[] args) {
-//		ArrayList<ArrayList<String>> sentences = new ArrayList<ArrayList<String>>();
-//		ArrayList<String> sentence1 = new ArrayList<String>();
-//		sentence1.add("Hey");
-//		sentence1.add("Aw,");
-//		sentence1.add("comedian");
-//		sentence1.add("Soupy");
-//		sentence1.add("sales");
-//		sentence1.add("died");
-//		sentence1.add("of");
-//		sentence1.add("cancer");
-//		ArrayList<String> sentence2 = new ArrayList<String>();
-//		sentence2.add("Great");
-//		sentence2.add("man");
-//		sentence2.add("Aw,");
-//		sentence2.add("comedian");
-//		sentence2.add("Soupy");
-//		sentence2.add("sales");
-//		sentence2.add("died");
-//		sentence2.add("due");
-//		sentence2.add("to");
-//		sentence2.add("cancer");
-//		ArrayList<String> sentence3 = new ArrayList<String>();
-//		sentence3.add("Great");
-//		sentence3.add("Hey");
-//		sentence3.add("Aw,");
-//		sentence3.add("comedian");
-//		sentence3.add("Soupy");
-//		sentence3.add("sales");
-//		sentence3.add("died");
-//		sentences.add(sentence1);
-//		sentences.add(sentence2);
-//		sentences.add(sentence3);
-//		SentenceTree st = new SentenceTree();
-//		Node root = new Node("Soupy", 1,0);
-//		st.addSentence(sentences.get(0),root);
-//		st.addSentence(sentences.get(1),root);
-//		st.addSentence(sentences.get(2),root);
-//		st.printTree(root);
-//		DFSSearch search = new DFSSearch();
-//		Node result = search.DFSUpdateweight(DFSSearch.RIGHT, root);
-//		
-//		System.out.println("The Maximum weight : "+ result.getMaxSumweight());
-//		System.out.println("The Summarized Tweet : "+result.getMaxweightNodeString());
-//		
-//
-//	}
 
 }

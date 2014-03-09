@@ -134,9 +134,12 @@ public class SummaryData {
 class TrendingTopic{
 	String topic;
 	ArrayList<String> tweets;
+	int id;
+	String autoSummary;
 
 	public TrendingTopic(String topic,ArrayList<String> tweets){
 		this.topic = topic;
 		this.tweets = tweets;
+		this.autoSummary = " ";
 	}
 }
