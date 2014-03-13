@@ -14,22 +14,3 @@
 {"manual":"Angie Brown doesn't get through The Voice","auto":"Angie Brown!!!�? She does not look 50!!"}
 {"manual":"Reds beat Swifts to regain top spot","auto":"Reds beat Swifts to regain top spot"}
 {"manual":"Goals from Robin van Persie and Wayne Rooney helped Manchester United achieve a 2-0 victory over Crystal Palace","auto":"Goals from Robin van Persie and Wayne Rooney helped Manchester United achieve a 2-0 victory over Crystal Palace"}
-{"manual":,"auto":}
-{"manual":,"auto":}
-{"manual":,"auto":}
-{"manual":,"auto":}
-{"manual":,"auto":}
-{"manual":,"auto":}
-{"manual":,"auto":}
-{"manual":,"auto":}
-{"manual":,"auto":}
-{"manual":,"auto":}
-{"manual":,"auto":}
-{"manual":,"auto":}
-{"manual":,"auto":}
-{"manual":,"auto":}
-{"manual":,"auto":}
-{"manual":,"auto":}
-{"manual":,"auto":}
-{"manual":,"auto":}
-{"manual":,"auto":}
