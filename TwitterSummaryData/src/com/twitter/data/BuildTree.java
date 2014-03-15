@@ -21,7 +21,7 @@ import com.twitter.data.SimpleBestFit;
 public class BuildTree {
 
 	public static void main(String[]args){
-		File file = new File("demo_tweets.txt");
+		File file = new File("TimelineTweet.txt");
 		//ArrayList<ArrayList<String>> sentences = new ArrayList<ArrayList<String>>();
 		Gson gson = new Gson();
 		ArrayList<TrendingTopic> summarizedTrendingTopics = new ArrayList<TrendingTopic>();
