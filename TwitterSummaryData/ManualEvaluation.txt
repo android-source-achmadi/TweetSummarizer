@@ -1,0 +1,16 @@
+{"manual":"Somerset floods. Government's unreasonable regulations considered reasons by Scientists too.","auto":"Scientists say Government's obsession with deregulation and cost-cutting responsible for Somerset"}
+{"manual":"Canada's Kaya Turski gains respect although she crashed out of sloping style skiing due to shoulder injuries and sickness in Sochi.","auto":"Three Canadians advance to ski slopestyle final as medal favourite Kaya Turski crashes out"}
+{"manual":"Canadian Yuki Tsubota finished sixth with a score of 71.60 during her first run before ending with a nasty fall in the final round in Sochi.","auto":"Canada’s Yuki Tsubota has a bad fall in Slopestyle ski finals."}
+{"manual":"The attractive Russian curling team defeats USA in Sochi.","auto":"Russian women's curling team defeats USA"}
+{"manual":"Great performance by Katie Summerhayes in ski slopestyle but sadly did not win a medal in Sochi.","auto":"GB's Katie Summerhayes performs well in Skyslope final but does not win a medal"}
+{"manual":"Australia's Anna Segal crashes out in her second run in the Ladies Ski Slopestyle in Sochi.","auto":"Anna SEGAL AUS32 R2 goes for 7 twice, over-rotates comes up short, 28.80 no lift but sits 3rd"}
+{"manual":"Canadian Dara Howell put up a tough score to beat and won a  deserving medal in ski slopestyle in Sochi.","auto":"Canadian Dara Howell captures GOLD in Women's ski slopestyle"}
+{"manual":"Labour Win The Wythenshawe And Sale East Parliamentary By-Election, Ukip Beat Tories Into Second","auto":"Wythenshawe by-election: Ukip knocks Tories into third but Labour wins"}
+{"manual":"Henrik Zetterberg Withdraws From Winter Olympics After Re-Injuring Back","auto":"Henrik Zetterberg of Sweden out of Olympics due to injury"}
+{"manual":"Heat vs OKC game","auto":"Heat beats OKC by 7 points"}
+{"manual":"Marcus Paige broke Quinn Cook's ankles","auto":"Marcus Paige made Quinn cook fall and break his ankle"}
+{"manual":"Michael Buble on Saturday night take-away","auto":"Michael Buble to feature on Saturday Night Takeaway"}
+{"manual":"Finland beat USA in hockey 5-0","auto":"The Americans just got blown out 5-0. Finland wins bronze. Usa goes home empty handed."}
+{"manual":"Angie Brown doesn't get through The Voice","auto":"Angie Brown was awesome in The Voice."}
+{"manual":"Reds beat Swifts to regain top spot","auto":"Reds beat Swifts to regain top spot. Cliftonville return to the Premiership summit after Stephen Garrett"}
+{"manual":"Goals from Robin van Persie and Wayne Rooney helped Manchester United achieve a 2-0 victory over Crystal Palace","auto":"Goals from Robin van Persie and Wayne Rooney helped Manchester United achieve a 2-0 victory over Crystal Palace"}

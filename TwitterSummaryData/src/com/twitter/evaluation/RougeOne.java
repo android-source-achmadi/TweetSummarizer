@@ -12,7 +12,7 @@ import com.google.gson.JsonParser;
 public class RougeOne {
 	
 	public static void main(String[] args){
-		File file = new File("Evaluation.txt");
+		File file = new File("EvaluationRaw.txt");
 		String line;
 		BufferedReader br;
 		ArrayList<String> manualList = new ArrayList<String>();
