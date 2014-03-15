@@ -21,7 +21,7 @@ import com.twitter.data.SimpleBestFit;
 public class BuildTree {
 
 	public static void main(String[]args){
-		File file = new File("all_tweets.txt");
+		File file = new File("demo_tweets.txt");
 		//ArrayList<ArrayList<String>> sentences = new ArrayList<ArrayList<String>>();
 		Gson gson = new Gson();
 		ArrayList<TrendingTopic> summarizedTrendingTopics = new ArrayList<TrendingTopic>();
@@ -135,7 +135,7 @@ public class BuildTree {
 						finalResult = search3.DFSUpdateweight(DFSSearch.RIGHT, rightRoot);
 					}
 			//System.out.println("The Maximum weight : "+ result.getMaxSumweight());
-			//System.out.println("The Summarized Tweet : "+result.getMaxweightNodeString());
+			System.out.println("The Summarized Tweet : "+finalResult.getMaxweightNodeString());
 
 			originalPhrases = SimpleBestFit.reconstructTweet(finalResult.getMaxweightNodeString(), originalTweets);
 								System.out.println("Summarized Tweet: ");
